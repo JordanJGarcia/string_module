@@ -63,7 +63,7 @@ int add_string( char** str, char*** arr, int* str_count )
     /* allocate memory to add new string to array */
     if ( *str_count == 0 )
     {
-        if ( (*arr = (char**)malloc( sizeof(char*) ) ) == NULL )
+        if ( (*arr = (char**)malloc( 2 * sizeof(char*) ) ) == NULL )
             return FAILURE;
     }
     else
