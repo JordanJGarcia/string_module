@@ -51,7 +51,7 @@ int build_string( char c, char** cmd )
 /*          int* str_count: pointer to number of strings in arr.     */
 /*                                                                   */
 /*      Description:                                                 */
-/*          adds a string to the end of an array of strings.         */
+/*          adds a string to an array of strings.                    */
 /*                                                                   */
 /*********************************************************************/
 int add_string( char** str, char*** arr, int* str_count )
@@ -68,7 +68,7 @@ int add_string( char** str, char*** arr, int* str_count )
     }
     else
     {
-        if ( (*arr = (char**)realloc(*arr, (*str_count + 1) 
+        if ( (*arr = (char**)realloc(*arr, (*str_count + 2) 
                                      * sizeof(char*) ) ) == NULL
            )
             return FAILURE;
@@ -84,12 +84,6 @@ int add_string( char** str, char*** arr, int* str_count )
 
     /* increase command count */
     *str_count += 1;
-
-    /* allocate memory to add null term */
-    if ( (*arr = (char**)realloc( *arr, (*str_count + 1) * 
-                                sizeof(char*) ) ) == NULL 
-       )
-        return FAILURE;
 
     /* last element set to NULL for execv() to work */
     (*arr)[*str_count] = NULL;
@@ -114,7 +108,7 @@ int add_string( char** str, char*** arr, int* str_count )
 /*                                                                   */
 /*      Description:                                                 */
 /*          moves strings from start onwards down n_indices in arr.  */
-/*          removes the string at start's initial value from arr.    */
+/*          removes the string *arr[start] from the array.           */
 /*                                                                   */
 /*********************************************************************/
 int move_strings_down( char*** arr, int* arr_size, int add_arr_size, 
@@ -182,9 +176,6 @@ int move_strings_down( char*** arr, int* arr_size, int add_arr_size,
 /*                                                                   */
 /*      Description:                                                 */
 /*          moves strings from start onwards down n_indices in arr.  */
-/*          indices being modified in to must be set to null already.*/
-/*          Tip: use move_strings_down() prior to using this and it  */
-/*               will automatically null out the indices.            */
 /*                                                                   */
 /*********************************************************************/
 int add_strings( char*** to, char*** from, int start, int n_indices )
